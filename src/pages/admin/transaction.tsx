@@ -21,7 +21,7 @@ interface IDataType {
 
 const columns: Column<IDataType>[] = [
   {
-    Header: "Avatar",
+    Header: "Name",
     accessor: "user",
   },
   {

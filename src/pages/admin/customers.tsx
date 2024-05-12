@@ -94,7 +94,7 @@ const Customers = () => {
     columns,
     rows,
     "dashboard-product-box",
-    "Customers",
+    "Users",
     rows.length > 6
   )();
 

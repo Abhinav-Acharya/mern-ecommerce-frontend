@@ -107,6 +107,11 @@ export type NewOrderRequest = {
   user: string;
 };
 
+export type newCouponRequest = {
+  coupon: string;
+  amount: number;
+};
+
 export type DeleteUserRequest = {
   userId: string;
   adminUserId: string;

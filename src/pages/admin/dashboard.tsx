@@ -1,6 +1,5 @@
 import { BiMaleFemale } from "react-icons/bi";
-import { BsDash, BsSearch } from "react-icons/bs";
-import { FaRegBell } from "react-icons/fa";
+import { BsDash } from "react-icons/bs";
 import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
@@ -31,12 +30,12 @@ const Dashboard = () => {
           <SkeletonLoader length={20} />
         ) : (
           <>
-            <div className="bar">
+            {/* <div className="bar">
               <BsSearch />
               <input type="text" placeholder="Search for data, users, docs" />
               <FaRegBell />
               <img src={user?.photo || ""} alt="User" />
-            </div>
+            </div> */}
             <section className="widget-container">
               <WidgetItem
                 percent={stats.percentChange.revenue}

@@ -1,5 +1,8 @@
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
+import { RootState } from "../../../types/types";
+import toast from "react-hot-toast";
 
 const allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const allNumbers = "1234567890";
@@ -11,18 +14,18 @@ const Coupon = () => {
   const [includeNumbers, setIncludeNumbers] = useState<boolean>(false);
   const [includeCharacters, setIncludeCharacters] = useState<boolean>(false);
   const [includeSymbols, setIncludeSymbols] = useState<boolean>(false);
+  const [amount, setAmount] = useState<number>(0);
   const [isCopied, setIsCopied] = useState<boolean>(false);
-
   const [coupon, setCoupon] = useState<string>("");
+
+  const { user } = useSelector((state: RootState) => state.userReducer);
 
   const copyText = async (coupon: string) => {
     await window.navigator.clipboard.writeText(coupon);
     setIsCopied(true);
   };
 
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const generateCoupon = () => {
     if (!includeNumbers && !includeCharacters && !includeSymbols)
       return alert("Please Select One At Least");
 
@@ -42,6 +45,27 @@ const Coupon = () => {
     setCoupon(result);
   };
 
+  const submitHandler = async () => {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_SERVER
+        }/api/v1/payment/coupon/new?id=${user?._id!}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ coupon, amount }),
+        }
+      );
+      const data = await response.json();
+      toast.success(data.message);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   useEffect(() => {
     setIsCopied(false);
   }, [coupon]);
@@ -52,7 +76,7 @@ const Coupon = () => {
       <main className="dashboard-app-container">
         <h1>Coupon</h1>
         <section>
-          <form className="coupon-form" onSubmit={submitHandler}>
+          <div className="coupon-form">
             <input
               type="text"
               placeholder="Text to include"
@@ -68,6 +92,13 @@ const Coupon = () => {
               onChange={(e) => setSize(Number(e.target.value))}
               min={8}
               max={25}
+            />
+
+            <input
+              type="number"
+              placeholder="Amount"
+              // value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
             />
 
             <fieldset>
@@ -94,16 +125,21 @@ const Coupon = () => {
               />
               <span>Symbols</span>
             </fieldset>
-            <button type="submit">Generate</button>
-          </form>
+            <button onClick={generateCoupon}>Generate</button>
+          </div>
 
           {coupon && (
             <code>
-              {coupon}{" "}
+              {coupon}
               <span onClick={() => copyText(coupon)}>
                 {isCopied ? "Copied" : "Copy"}
-              </span>{" "}
+              </span>
             </code>
+          )}
+          {coupon && (
+            <button className="add-coupon" onClick={submitHandler}>
+              Add
+            </button>
           )}
         </section>
       </main>
