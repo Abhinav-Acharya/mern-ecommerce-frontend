@@ -8,7 +8,6 @@ import {
   FaShoppingBag,
   FaSignInAlt,
   FaSignOutAlt,
-  FaUser,
 } from "react-icons/fa";
 import { auth } from "../firebase";
 import { IHeaderPropsType } from "../types/types";

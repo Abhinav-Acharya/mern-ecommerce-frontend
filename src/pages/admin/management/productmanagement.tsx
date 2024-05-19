@@ -9,7 +9,6 @@ import {
   useProductDetailsQuery,
   useUpdateProductMutation,
 } from "../../../redux/api/productApi";
-import { server } from "../../../redux/store";
 import { RootState } from "../../../types/types";
 import { responseToast } from "../../../utils/features";
 
