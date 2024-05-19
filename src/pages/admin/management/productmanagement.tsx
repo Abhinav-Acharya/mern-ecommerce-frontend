@@ -105,14 +105,14 @@ const Productmanagement = () => {
           <>
             <section>
               <strong>ID - {data?.product._id}</strong>
-              <img src={`${server}/${photo}`} alt="Product" />
+              <img src={photo} alt="Product" />
               <p>{name}</p>
               {stock > 0 ? (
                 <span className="green">{stock} Available</span>
               ) : (
-                <span className="red"> Not Available</span>
+                <span className="red">Not Available</span>
               )}
-              <h3>₹{price}</h3>
+              <h6>₹{price}</h6>
             </section>
             <article>
               <button onClick={deleteHandler} className="product-delete-btn">

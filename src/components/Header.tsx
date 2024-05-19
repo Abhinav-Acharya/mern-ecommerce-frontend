@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { signOut } from "firebase/auth";
+import toast from "react-hot-toast";
 import {
   FaSearch,
   FaShoppingBag,
@@ -8,10 +10,8 @@ import {
   FaSignOutAlt,
   FaUser,
 } from "react-icons/fa";
-import { IHeaderPropsType } from "../types/types";
-import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
-import toast from "react-hot-toast";
+import { IHeaderPropsType } from "../types/types";
 
 const Header = ({ user }: IHeaderPropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -41,7 +41,8 @@ const Header = ({ user }: IHeaderPropsType) => {
         {user?._id ? (
           <>
             <button onClick={() => setIsOpen((prev) => !prev)}>
-              <FaUser />
+              {/* <FaUser /> */}
+              <img src={user?.photo} />
             </button>
             <dialog open={isOpen}>
               <div>

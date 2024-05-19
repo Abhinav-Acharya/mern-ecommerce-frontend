@@ -97,13 +97,9 @@
   }
 
   .dashboard-app-container > section {
-    .coupon-form,
-    .stopwatch {
+    .coupon-form {
       display: flex;
       flex-direction: column;
-    }
-    .stopwatch {
-      align-items: center;
     }
   }
 }

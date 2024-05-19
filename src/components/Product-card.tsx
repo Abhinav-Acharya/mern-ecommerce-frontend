@@ -22,7 +22,7 @@ const ProductCard = ({
   return (
     <>
       <div className="productCard">
-        <img alt={name} src={`${server}/${photo}`} />
+        <img alt={name} src={photo} />
         <p>{name}</p>
         <span>₹{price}</span>
         <div>
